@@ -1,16 +1,14 @@
-'use client'
-import { GoogleButton } from '@/components/GoogleButton'
-import { useState } from 'react'
+import { BlogPosts } from '@/components/BlogPosts';
+import { Header } from '@/components/Header';
 
-export default function Home() {
-  const [open, setOpen] = useState(false)
+export default async function Home() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/posts`)
+  const { posts } = await response.json()
+
   return (
     <div>
-      <h1>Test</h1>
-      <button onClick={() => setOpen(!open)}>Show/hide</button>
-      {open && (
-        <GoogleButton />
-      )}
+      <Header />
+      <BlogPosts posts={posts} />
     </div>
   );
 }
