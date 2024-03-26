@@ -10,7 +10,9 @@ export default async function Home() {
   return (
     <div>
       <Header />
-      <BlogPosts posts={posts} />
+      <div className="max-w-screen-md mx-auto">
+        <BlogPosts posts={posts} />
+      </div>
     </div>
   );
 }

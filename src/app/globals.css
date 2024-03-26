@@ -11,3 +11,15 @@
     text-wrap: balance;
   }
 }
+
+.post p {
+  margin: 1rem 0;
+}
+
+.post p:first-child {
+  margin-top: 0;
+}
+
+.post p:last-child {
+  margin-bottom: 0;
+}
