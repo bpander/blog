@@ -1,9 +1,13 @@
 import { Post } from '@/util/loadPosts'
 import Markdown from 'markdown-to-jsx'
+import Image, { ImageProps } from 'next/image'
 
 interface BlogPostsProps {
   posts: Post[]
 }
+
+// eslint-disable-next-line jsx-a11y/alt-text
+const MyImg = (props: ImageProps) => <Image {...props} />
 
 export const BlogPosts = ({ posts }: BlogPostsProps) => {
   return (
@@ -18,7 +22,13 @@ export const BlogPosts = ({ posts }: BlogPostsProps) => {
           </div>
           <div className="mb-4" />
           <div className="post">
-            <Markdown>{post.contents}</Markdown>
+            <Markdown
+              options={{
+                overrides: { img: MyImg },
+              }}
+            >
+              {post.contents}
+            </Markdown>
           </div>
         </div>
       ))}
