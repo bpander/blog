@@ -1,4 +1,4 @@
-import { Post } from '@/app/api/posts/route'
+import { Post } from '@/util/loadPosts'
 import Markdown from 'markdown-to-jsx'
 
 interface BlogPostsProps {
@@ -7,9 +7,9 @@ interface BlogPostsProps {
 
 export const BlogPosts = ({ posts }: BlogPostsProps) => {
   return (
-    <>
+    <div className="-mt-6 pt-4">
       {posts?.map((post, i) => (
-        <div className="p-8 bg-white my-8" key={i}>
+        <div className="p-6 bg-white my-8" key={i}>
           <h2 className="font-bold text-2xl">
             {post.title || 'Untitled'}
           </h2>
@@ -22,6 +22,6 @@ export const BlogPosts = ({ posts }: BlogPostsProps) => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   )
 }

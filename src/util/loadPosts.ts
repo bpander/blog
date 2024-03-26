@@ -8,9 +8,9 @@ export interface Post {
   contents: string
 }
 
-const perPage = +(process.env.POSTS_PER_PAGE || 10)
+const perPage = +(process.env.POSTS_PER_PAGE || 5)
 
-export const GET = () => {
+export const loadPosts = () => {
   const dir = path.resolve('./public', 'posts')
   const files = fs.readdirSync(dir)
   const posts: Post[] = files.slice(perPage * -1).reverse().map((id) => {
@@ -23,5 +23,5 @@ export const GET = () => {
       contents,
     }
   })
-  return Response.json({ posts })
+  return posts
 }
