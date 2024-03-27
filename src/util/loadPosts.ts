@@ -4,6 +4,7 @@ import { parse } from 'yaml'
 
 export interface Post {
   index: number
+  latest: boolean
   title: string | null
   date: string | null
   contents: string
@@ -18,8 +19,10 @@ export const loadPosts = () => {
     const contents = fs.readFileSync(path.resolve(dir, id), 'utf-8')
     const metadataYaml = contents.match(/(?<=---\s+).*?(?=\s+---)/s)?.[0]
     const metadata = parse(metadataYaml || '')
+    const index = files.indexOf(id)
     return {
-      index: files.indexOf(id),
+      index,
+      latest: index === files.length - 1,
       title: metadata?.Title || null,
       date: metadata?.Date || null,
       contents,
