@@ -12,20 +12,20 @@ export interface Post {
 }
 
 const perPage = +(process.env.POSTS_PER_PAGE || 5)
-const dir = path.resolve('./public', 'posts')
+const dir = path.resolve('./public', 'posts-raw')
 
-const getAllPostIds = () => {
+export const getAllPostIds = () => {
   return fs.readdirSync(dir).sort()
 }
 
-export const loadPost = (name: string): Post => {
-  const contents = fs.readFileSync(path.resolve(dir, name), 'utf-8')
+export const loadPost = (id: string): Post => {
+  const contents = fs.readFileSync(path.resolve(dir, id), 'utf-8')
   const metadataYaml = contents.match(/(?<=---\s+).*?(?=\s+---)/s)?.[0]
   const metadata = parse(metadataYaml || '')
   const allIds = getAllPostIds()
-  const index = allIds.indexOf(name)
+  const index = allIds.indexOf(id)
   return {
-    id: name.split('.')[0],
+    id,
     index,
     latest: index === allIds.length - 1,
     title: metadata?.Title || null,
